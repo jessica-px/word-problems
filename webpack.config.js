@@ -25,9 +25,8 @@ module.exports = {
          }
       ]
    },
-//    plugins:[
-//       new HtmlWebpackPlugin({
-//          template: './index.html'
-//       })
-//    ]
+   resolve: {
+      modules: [path.resolve(__dirname, 'client'), 'node_modules'],
+      extensions: [ '.tsx', '.ts', '.js' ]
+   }
 }
