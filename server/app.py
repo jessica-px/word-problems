@@ -1,16 +1,16 @@
 from io import BytesIO
-from flask import Flask, jsonify, make_response, send_file
+from flask import Flask, jsonify, make_response, send_file, render_template
 from server.generators.years import generate_years
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="../client", template_folder="../client")
 
 # -------------------------------------------------------------------------- #
 #                             Frontend Endpoint                              #
 # -------------------------------------------------------------------------- #
 
-@app.route('/')
+@app.route("/")
 def index():
-    return "Hello, World!"
+    return render_template("index.html")
 
 
 # -------------------------------------------------------------------------- #
