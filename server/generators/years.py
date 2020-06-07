@@ -175,13 +175,15 @@ class PDF(FPDF, HTMLMixin):
         # Line Break
         self.ln(12)
 
-pdf = PDF()
-pdf.add_page()
+def generate_years():
 
-# Print title
-pdf.add_title('Years and Ages')
-# Print sentence list
-for sentence in get_sentence_list():
-    pdf.text_line(sentence)
+    pdf = PDF()
+    pdf.add_page()
 
-pdf.output("simple_demo.pdf")
+    # Print title
+    pdf.add_title('Years and Ages')
+    # Print sentence list
+    for sentence in get_sentence_list():
+        pdf.text_line(sentence)
+
+    return pdf.output(name="simple_demo.pdf", dest='S')
