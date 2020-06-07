@@ -44,16 +44,17 @@ const SideBar = styled.div`
   width: 350px;
   background-color: #d1e8df;
   height: 100%;
+  padding-top: 100px;
 `
 
 const LinkStyle = styled(Link)<{ isHighlighted: boolean }>`
   text-decoration: none;
   color: #03363d;
-  padding: 10px 20px;
+  padding: 15px 50px;
   border-style: none;
-  border-left: 10px solid transparent;
+  border-left: 12px solid transparent;
   ${props => props.isHighlighted && css`
-    border-left: 10px solid #03363d;
+    border-left: 12px solid #03363d;
     font-weight: 600;
   `}
 `
