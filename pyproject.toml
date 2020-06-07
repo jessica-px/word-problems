@@ -9,6 +9,7 @@ python = "^3.6"
 py-randomizer = "^0.0.3"
 fpdf = "^1.7.2"
 flask = "^1.1.2"
+inflect = "^4.1.0"
 
 [tool.poetry.dev-dependencies]
 
