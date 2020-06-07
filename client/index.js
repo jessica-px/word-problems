@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
-import styled, { createGlobalStyle } from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components';
+import { ThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 
 import { NavBar } from 'generalUI/Navbar';
 import { HomePage } from 'pages/homePage/HomePage.tsx';
@@ -13,7 +15,7 @@ import { YearsPage } from 'pages/yearsPage/YearsPage.tsx';
 // -------------------------------------------------------------------------- //
 
 const App = () => (
-  <React.Fragment>
+  <ThemeProvider theme={theme}>
     <GlobalStyle />
     <Router>
       <PageContainer>
@@ -30,12 +32,24 @@ const App = () => (
         </MainContent>
       </PageContainer>
     </Router>
-  </React.Fragment>
+  </ThemeProvider>
 )
 
 // -------------------------------------------------------------------------- //
 //                              Styled Components                             //
 // -------------------------------------------------------------------------- //
+
+// Overrides defaults for MaterialUI components
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#03363d',
+    },
+    secondary: {
+      main: '#7cb342'
+    },
+  }
+})
 
 const GlobalStyle = createGlobalStyle`
   html, body, body > #app {
