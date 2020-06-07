@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styled, { css } from 'styled-components'
+import SchoolIcon from '@material-ui/icons/School';
 
 // -------------------------------------------------------------------------- //
 //                              Main Component                                //
@@ -9,6 +10,7 @@ import styled, { css } from 'styled-components'
 export const NavBar = () => {
   return (
     <SideBar>
+      <SiteIcon fontSize='large' color="primary" />
       <NavLink
         url='/'
         name='Home'
@@ -44,7 +46,7 @@ const SideBar = styled.div`
   width: 350px;
   background-color: #d1e8df;
   height: 100%;
-  padding-top: 100px;
+  padding-top: 40px;
 `
 
 const LinkStyle = styled(Link)<{ isHighlighted: boolean }>`
@@ -57,4 +59,9 @@ const LinkStyle = styled(Link)<{ isHighlighted: boolean }>`
     border-left: 12px solid #03363d;
     font-weight: 600;
   `}
+`
+
+const SiteIcon = styled(SchoolIcon)`
+  margin: 0 auto;
+  margin-bottom: 30px;
 `
