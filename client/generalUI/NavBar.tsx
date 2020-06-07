@@ -27,7 +27,12 @@ export const NavBar = () => {
 //                               Sub-Components                               //
 // -------------------------------------------------------------------------- //
 
-const NavLink = ({url, name}: any) => {
+interface NavLinkProps {
+  url: string,
+  name: string
+}
+
+const NavLink = ({url, name}: NavLinkProps) => {
   const currURL = useLocation().pathname;
   const isCurrent = currURL === url;
 
@@ -49,7 +54,11 @@ const SideBar = styled.div`
   padding-top: 40px;
 `
 
-const LinkStyle = styled(Link)<{ isHighlighted: boolean }>`
+interface LinkStyleProps {
+  isHighlighted: boolean
+}
+
+const LinkStyle = styled(Link)<LinkStyleProps>`
   text-decoration: none;
   color: #03363d;
   padding: 15px 50px;
