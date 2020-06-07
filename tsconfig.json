@@ -1,7 +1,9 @@
 {
     "compilerOptions": {
+        "lib": ["es6", "dom"],
         "module": "es6",
         "noImplicitAny": true,
+        "strictNullChecks": true,
         "removeComments": true,
         "preserveConstEnums": true,
         "sourceMap": true,
@@ -16,6 +18,8 @@
     ],
     "exclude": [
         "node_modules",
-        "**/*.spec.ts"
+        "**/*.spec.ts",
+        "client/bundle.js",
+        "client/index.js"
     ]
 }
