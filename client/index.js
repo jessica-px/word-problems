@@ -57,6 +57,17 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
     margin: 0;
     padding: 0;
+    color: #68737d;
+    h1, h2, h3 {
+      color: #03363d;
+    }
+    a {
+      text-decoration: none;
+      color: #03363d;
+    }
+    a:visited {
+      color: #03363d;
+    }
   }
 `
 
@@ -67,8 +78,9 @@ const PageContainer = styled.div`
 `
 
 const MainContent = styled.div`
-  background-color: #f2f7f5;
+  background-color: #fefefe;
   width: 100%;
+  padding: 50px 60px;
 `
 
 ReactDOM.render(<App />, document.getElementById('app'));
