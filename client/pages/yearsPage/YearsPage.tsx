@@ -60,13 +60,24 @@ export const YearsPage = () => (
 
 const ConfigurationSection = () => {
   const [numProblems, setNumProblems] = useState<number>(15);
-
   const onChangeNumProblems = (e: any, value: number) => {
     setNumProblems(value);
   }
 
+  const [useAnswerSheet, setUseAnswerSheet] = useState<boolean>(false);
+  const onChangeUseAnswerSheet = (value: boolean) => {
+    setUseAnswerSheet(value);
+  }
+
+  const [useComicSans, setUseComicSans] = useState<boolean>(false);
+  const onChangeUseComicSans = (value: boolean) => {
+    setUseComicSans(value);
+  }
+
   const postForm = () => {
-    console.log(numProblems)
+    console.log('Problems: ' + numProblems)
+    console.log('Answer Sheet: ' + useAnswerSheet)
+    console.log('Comic Sans: ' + useComicSans)
   }
 
   return (
@@ -83,8 +94,16 @@ const ConfigurationSection = () => {
             step={5}
             onChange={onChangeNumProblems}
           />
-          <CustomCheckbox label="Include Answer Sheet" defaultState={false}/>
-          <CustomCheckbox label="Use Comic Sans" defaultState={false}/>
+          <CustomCheckbox
+            label="Include Answer Sheet"
+            defaultState={false}
+            onChange={onChangeUseAnswerSheet}
+          />
+          <CustomCheckbox
+            label="Use Comic Sans"
+            defaultState={false}
+            onChange={onChangeUseComicSans}
+          />
         </Column>
         {/* ----- Column 2 ------------------- */}
         <Column>
