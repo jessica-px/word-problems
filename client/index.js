@@ -21,19 +21,27 @@ const App = () => (
       <PageContainer>
         <NavBar />
         <MainContent>
-          <Switch>
-            <Route exact path="/">
-              <HomePage />
-            </Route>
-            <Route path="/years">
-              <YearsPage />
-            </Route>
-          </Switch>
+          <Routing />
           <Footer/>
         </MainContent>
       </PageContainer>
     </Router>
   </ThemeProvider>
+)
+
+// -------------------------------------------------------------------------- //
+//                                 Routing                                    //
+// -------------------------------------------------------------------------- //
+
+const Routing = () => (
+  <Switch>
+    <Route exact path="/">
+      <HomePage />
+    </Route>
+    <Route path="/years">
+      <YearsPage />
+    </Route>
+  </Switch>
 )
 
 // -------------------------------------------------------------------------- //
@@ -61,6 +69,7 @@ const GlobalStyle = createGlobalStyle`
     color: #68737d;
     h1, h2, h3 {
       color: #03363d;
+      font-weight: 400;
     }
     a {
       text-decoration: none;
