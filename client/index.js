@@ -46,7 +46,7 @@ const theme = createMuiTheme({
       main: '#03363d',
     },
     secondary: {
-      main: '#7cb342'
+      main: '#774e72'
     },
   }
 })
@@ -81,6 +81,7 @@ const MainContent = styled.div`
   background-color: #fefefe;
   width: 100%;
   padding: 50px 60px;
+  overflow: auto;
 `
 
 ReactDOM.render(<App />, document.getElementById('app'));
