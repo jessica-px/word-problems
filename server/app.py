@@ -29,7 +29,7 @@ def index():
     front and back ends.
 '''
 
-@app.route('/api/years', methods=['GET'])
+@app.route('/api/years', methods=['POST'])
 def get_years():
     pdf_byte_string = generate_years()
     return jsonify(pdf_byte_string)
