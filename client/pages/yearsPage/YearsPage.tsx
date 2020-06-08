@@ -8,6 +8,7 @@ import { CustomSlider } from 'generalUI/CustomSlider';
 import { CustomCheckbox } from 'generalUI/CustomCheckbox';
 import { RadioForm } from 'generalUI/RadioForm';
 import { PageInfo } from 'generalUI/PageInfo';
+import { API } from 'api';
 
 // -------------------------------------------------------------------------- //
 //                                Page Setup                                  //
@@ -59,6 +60,7 @@ export const YearsPage = () => (
 // -------------------------------------------------------------------------- //
 
 interface FormData {
+  file_name: string,
   num_problems: number,
   answer_sheet: boolean,
   comic_sans: boolean,
@@ -106,6 +108,7 @@ const ConfigurationSection = () => {
 
   const getData = (): FormData => {
     return {
+      file_name: 'years_and_ages.pdf',
       num_problems: numProblems,
       answer_sheet: useAnswerSheet,
       comic_sans: useComicSans,
@@ -184,11 +187,11 @@ interface ButtonSectionProps {
 
 const ButtonSection = ({data}: ButtonSectionProps) => {
   const postAndDownload = () => {
-    console.log(data);
+    API.postAndDownload('/api/years', data)
   }
 
   const postAndOpen = () => {
-    console.log(data);
+    API.postAndOpenInNewTab('/api/years', data)
   }
 
   return (
