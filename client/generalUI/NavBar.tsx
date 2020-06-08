@@ -50,7 +50,6 @@ const SideBar = styled.div`
   flex-direction: column;
   width: 350px;
   background-color: #d1e8df;
-  height: 100%;
   padding-top: 40px;
 `
 
