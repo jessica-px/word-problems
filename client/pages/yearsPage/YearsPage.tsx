@@ -74,10 +74,34 @@ const ConfigurationSection = () => {
     setUseComicSans(value);
   }
 
+  const [numberType, setNumberType] = useState<string>('Numbers Only');
+  const onChangeNumberType = (value: string) => {
+    setNumberType(value);
+  }
+
+  const [mathType, setMathType] = useState<string>('Addition Only');
+  const onChangeMathType = (value: string) => {
+    setMathType(value);
+  }
+
+  const [regrouping, setRegrouping] = useState<string>('Never');
+  const onChangeRegrouping = (value: string) => {
+    setRegrouping(value);
+  }
+
+  const [extraInfo, setExtraInfo] = useState<string>('Never');
+  const onChangeExtraIndo = (value: string) => {
+    setExtraInfo(value);
+  }
+
   const postForm = () => {
     console.log('Problems: ' + numProblems)
     console.log('Answer Sheet: ' + useAnswerSheet)
     console.log('Comic Sans: ' + useComicSans)
+    console.log('Number Type: ' + numberType)
+    console.log('Math Type: ' + mathType)
+    console.log('Regrouping: ' + regrouping)
+    console.log('Extra Info: ' + extraInfo)
   }
 
   return (
@@ -110,10 +134,12 @@ const ConfigurationSection = () => {
           <RadioForm
             label='Number Display Type'
             options={['Numbers Only', 'Words Only', 'Numbers and Words']}
+            onChange={onChangeNumberType}
           />
           <RadioForm
             label='Math Type'
             options={['Addition Only', 'Subtraction Only', 'Addition and Subtraction']}
+            onChange={onChangeMathType}
           />
         </Column>
         {/* ----- Column 3 ------------------- */}
@@ -121,10 +147,12 @@ const ConfigurationSection = () => {
           <RadioForm
             label='Require Regrouping'
             options={['Never', 'Sometimes', 'Always']}
+            onChange={onChangeRegrouping}
           />
           <RadioForm
             label='Extra Information'
             options={['Never', 'Sometimes', 'Always']}
+            onChange={onChangeExtraIndo}
           />
         </Column>
       </ColumnWrapper>
