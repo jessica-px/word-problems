@@ -8,14 +8,17 @@ import Radio from '@material-ui/core/Radio';
 
 interface RadioFormProps {
   label: string,
-  options: any
+  options: any,
+  onChange: any,
 }
 
-export const RadioForm = ({label, options}: RadioFormProps) => {
+export const RadioForm = ({label, options, onChange}: RadioFormProps) => {
   const [value, setValue] = React.useState(options[0]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue((event.target as HTMLInputElement).value);
+    const newValue = (event.target as HTMLInputElement).value;
+    setValue(newValue);
+    onChange(newValue);
   };
 
   return (
