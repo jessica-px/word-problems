@@ -71,7 +71,7 @@ interface FormData {
 }
 
 const ConfigurationSection = () => {
-  const [numProblems, setNumProblems] = useState<number>(15);
+  const [numProblems, setNumProblems] = useState<number>(8);
   const onChangeNumProblems = (e: any, value: number) => {
     setNumProblems(value);
   }
@@ -127,10 +127,11 @@ const ConfigurationSection = () => {
         <Column>
           <CustomSlider
             label='Number of Problems'
-            min={10}
-            max={30}
-            defaultValue={15}
-            step={5}
+            min={4}
+            max={12}
+            defaultValue={8}
+            step={1}
+            markStep={2}
             onChange={onChangeNumProblems}
           />
           <CustomCheckbox
