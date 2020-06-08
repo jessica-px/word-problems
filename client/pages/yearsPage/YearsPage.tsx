@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components'
 import Button from '@material-ui/core/Button';
 import GetAppIcon from '@material-ui/icons/GetApp';
@@ -58,60 +58,74 @@ export const YearsPage = () => (
 //                           Configuration Section                            //
 // -------------------------------------------------------------------------- //
 
-const ConfigurationSection = () => (
-  <React.Fragment>
-    <h2>Configure</h2>
-    <ColumnWrapper>
-      <Column>
-        <CustomSlider
-          label='Number of Problems'
-          min={10}
-          max={30}
-          defaultValue={15}
-          step={5}
-        />
-        <CustomCheckbox label="Include Answer Sheet" defaultState={false}/>
-        <CustomCheckbox label="Use Comic Sans" defaultState={false}/>
-      </Column>
-      <Column>
-        <RadioForm
-          label='Number Display Type'
-          options={['Numbers Only', 'Words Only', 'Numbers and Words']}
-        />
-        <RadioForm
-          label='Math Type'
-          options={['Addition Only', 'Subtraction Only', 'Addition and Subtraction']}
-        />
-      </Column>
-      <Column>
-        <RadioForm
-          label='Require Regrouping'
-          options={['Never', 'Sometimes', 'Always']}
-        />
-        <RadioForm
-          label='Extra Information'
-          options={['Never', 'Sometimes', 'Always']}
-        />
-      </Column>
-    </ColumnWrapper>
-    <ButtonWrapper>
-      <Button
-      variant="contained"
-      color="primary"
-      startIcon={<GetAppIcon />}
-      >
-        Download PDF
-      </Button>
-      <Button
-      variant="contained"
-      color="primary"
-      startIcon={<OpenInNewIcon />}
-      >
-        Open PDF in New Tab
-      </Button>
-    </ButtonWrapper>
-  </React.Fragment>
-)
+const ConfigurationSection = () => {
+  const [numProblems, setNumProblems] = useState<number>(15);
+
+  const onChangeNumProblems = (e: any, value: number) => {
+    setNumProblems(value);
+  }
+
+  const postForm = () => {
+    console.log(numProblems)
+  }
+
+  return (
+    <React.Fragment>
+      <h2>Configure</h2>
+      <ColumnWrapper>
+        <Column>
+          <CustomSlider
+            label='Number of Problems'
+            min={10}
+            max={30}
+            defaultValue={15}
+            step={5}
+            onChange={onChangeNumProblems}
+          />
+          <CustomCheckbox label="Include Answer Sheet" defaultState={false}/>
+          <CustomCheckbox label="Use Comic Sans" defaultState={false}/>
+        </Column>
+        <Column>
+          <RadioForm
+            label='Number Display Type'
+            options={['Numbers Only', 'Words Only', 'Numbers and Words']}
+          />
+          <RadioForm
+            label='Math Type'
+            options={['Addition Only', 'Subtraction Only', 'Addition and Subtraction']}
+          />
+        </Column>
+        <Column>
+          <RadioForm
+            label='Require Regrouping'
+            options={['Never', 'Sometimes', 'Always']}
+          />
+          <RadioForm
+            label='Extra Information'
+            options={['Never', 'Sometimes', 'Always']}
+          />
+        </Column>
+      </ColumnWrapper>
+      <ButtonWrapper>
+        <Button
+          variant="contained"
+          color="primary"
+          startIcon={<GetAppIcon />}
+          onClick={postForm}
+        >
+          Download PDF
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          startIcon={<OpenInNewIcon />}
+        >
+          Open PDF in New Tab
+        </Button>
+      </ButtonWrapper>
+    </React.Fragment>
+  )
+}
 
 // -------------------------------------------------------------------------- //
 //                                 Styles                                     //
