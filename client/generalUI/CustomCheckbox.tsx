@@ -4,14 +4,16 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 interface CustomCheckboxProps {
   label: string,
-  defaultState: boolean
+  defaultState: boolean,
+  onChange: any
 }
 
-export const CustomCheckbox = ({label, defaultState}: CustomCheckboxProps) => {
+export const CustomCheckbox = ({label, defaultState, onChange}: CustomCheckboxProps) => {
   const [checked, setChecked] = React.useState(defaultState);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
+    onChange(event.target.checked);
   };
 
   return (
