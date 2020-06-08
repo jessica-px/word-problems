@@ -58,6 +58,16 @@ export const YearsPage = () => (
 //                           Configuration Section                            //
 // -------------------------------------------------------------------------- //
 
+interface FormData {
+  num_problems: number,
+  answer_sheet: boolean,
+  comic_sans: boolean,
+  number_type: string,
+  math_type: string,
+  regrouping: string,
+  extra_info: string
+}
+
 const ConfigurationSection = () => {
   const [numProblems, setNumProblems] = useState<number>(15);
   const onChangeNumProblems = (e: any, value: number) => {
@@ -94,14 +104,16 @@ const ConfigurationSection = () => {
     setExtraInfo(value);
   }
 
-  const postForm = () => {
-    console.log('Problems: ' + numProblems)
-    console.log('Answer Sheet: ' + useAnswerSheet)
-    console.log('Comic Sans: ' + useComicSans)
-    console.log('Number Type: ' + numberType)
-    console.log('Math Type: ' + mathType)
-    console.log('Regrouping: ' + regrouping)
-    console.log('Extra Info: ' + extraInfo)
+  const getData = (): FormData => {
+    return {
+      num_problems: numProblems,
+      answer_sheet: useAnswerSheet,
+      comic_sans: useComicSans,
+      number_type: numberType,
+      math_type: mathType,
+      regrouping: regrouping,
+      extra_info: extraInfo
+    }
   }
 
   return (
@@ -157,24 +169,47 @@ const ConfigurationSection = () => {
         </Column>
       </ColumnWrapper>
       {/* ----- Button Section ------------------- */}
-      <ButtonWrapper>
-        <Button
-          variant="contained"
-          color="primary"
-          startIcon={<GetAppIcon />}
-          onClick={postForm}
-        >
-          Download PDF
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          startIcon={<OpenInNewIcon />}
-        >
-          Open PDF in New Tab
-        </Button>
-      </ButtonWrapper>
+      <ButtonSection data={getData()} />
     </React.Fragment>
+  )
+}
+
+// -------------------------------------------------------------------------- //
+//                              Button Section                                //
+// -------------------------------------------------------------------------- //
+
+interface ButtonSectionProps {
+  data: FormData
+}
+
+const ButtonSection = ({data}: ButtonSectionProps) => {
+  const postAndDownload = () => {
+    console.log(data);
+  }
+
+  const postAndOpen = () => {
+    console.log(data);
+  }
+
+  return (
+    <ButtonWrapper>
+      <Button
+        variant="contained"
+        color="primary"
+        startIcon={<GetAppIcon />}
+        onClick={postAndDownload}
+      >
+        Download PDF
+      </Button>
+      <Button
+        variant="contained"
+        color="primary"
+        startIcon={<OpenInNewIcon />}
+        onClick={postAndOpen}
+      >
+        Open PDF in New Tab
+      </Button>
+    </ButtonWrapper>
   )
 }
 
