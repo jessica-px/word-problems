@@ -8,7 +8,11 @@ module.exports = {
    },
    devServer: {
       inline: true,
-      port: 8001
+      port: 8001,
+      proxy: {
+         "/api": "http://localhost:5000",
+         changeOrigin: true
+       }
    },
    module: {
       rules: [
