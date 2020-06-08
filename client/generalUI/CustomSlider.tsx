@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components'
 import { withStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
+import { COLORS } from 'generalUI/styleConstants';
 
 // -------------------------------------------------------------------------- //
 //                              Main Component                                //
@@ -62,14 +63,14 @@ const StyledSlider = withStyles({
   },
   rail: {
     height: 3,
-    backgroundColor: '#B3C2C4',
+    backgroundColor: COLORS.faded_mint,
     opacity: 1,
   },
   mark: {
     height: 8,
     width: 2,
     marginTop: -2,
-    backgroundColor: '#B3C2C4'
+    backgroundColor: COLORS.faded_mint
   },
   markActive: {
     height: 7,

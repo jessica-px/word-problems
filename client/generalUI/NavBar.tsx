@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styled, { css } from 'styled-components'
-import SchoolIcon from '@material-ui/icons/School';
+import EcoIcon from '@material-ui/icons/Eco';
+import { PALETTE } from 'generalUI/styleConstants';
 
 // -------------------------------------------------------------------------- //
 //                              Main Component                                //
@@ -49,7 +50,7 @@ const SideBar = styled.div`
   display: flex;
   flex-direction: column;
   width: 350px;
-  background-color: #d1e8df;
+  background-color: ${PALETTE.background_medium};
   padding-top: 40px;
 `
 
@@ -59,17 +60,16 @@ interface LinkStyleProps {
 
 const LinkStyle = styled(Link)<LinkStyleProps>`
   text-decoration: none;
-  color: #03363d;
+  color: ${PALETTE.primary};
   padding: 15px 50px;
   border-style: none;
   border-left: 12px solid transparent;
   ${props => props.isHighlighted && css`
-    border-left: 12px solid #03363d;
+    border-left: 12px solid ${PALETTE.primary};
     font-weight: 600;
   `}
 `
-
-const SiteIcon = styled(SchoolIcon)`
+const SiteIcon = styled(EcoIcon)`
   margin: 0 auto;
   margin-bottom: 30px;
 `

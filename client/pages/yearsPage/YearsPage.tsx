@@ -13,6 +13,7 @@ import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import { CustomSlider } from 'generalUI/CustomSlider';
 import { CustomCheckbox } from 'generalUI/CustomCheckbox';
 import { RadioForm } from 'generalUI/RadioForm';
+import { PALETTE } from 'generalUI/styleConstants';
 
 // -------------------------------------------------------------------------- //
 //                                Page Setup                                  //
@@ -199,7 +200,7 @@ const ChipContainer = styled.div`
 
 const LightTooltip = withStyles((theme: Theme) => ({
   tooltip: {
-    backgroundColor: theme.palette.common.white,
+    backgroundColor: PALETTE.background_light,
     color: 'rgba(0, 0, 0, 0.87)',
     boxShadow: theme.shadows[1],
     fontSize: 12,
