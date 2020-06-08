@@ -14,10 +14,11 @@ interface CustomSliderProps {
   max: number,
   defaultValue: number,
   step: number,
-  label: string
+  label: string,
+  onChange: any
 }
 
-export const CustomSlider = ({min, max, defaultValue, step, label}: CustomSliderProps) => (
+export const CustomSlider = ({min, max, defaultValue, step, label, onChange}: CustomSliderProps) => (
   <div>
     <Typography id={`slider-${label}`} gutterBottom>
       {label}
@@ -30,6 +31,7 @@ export const CustomSlider = ({min, max, defaultValue, step, label}: CustomSlider
       max={max}
       marks={getMarks(min, max, step)}
       step={step}
+      onChange={onChange}
     />
   </div>
 )
@@ -41,7 +43,6 @@ export const CustomSlider = ({min, max, defaultValue, step, label}: CustomSlider
 const getMarks = (min: number, max: number, step: number) => {
   const marks = [];
   for (let i = min; i <= max; i+=step) {
-    console.log(i)
     if (i % 5 == 0) {
       marks.push({value: i, label: i});
     }
