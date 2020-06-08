@@ -6,6 +6,9 @@ import CardContent from '@material-ui/core/CardContent';
 import Chip from '@material-ui/core/Chip';
 import LaunchIcon from '@material-ui/icons/Launch';
 import Tooltip from '@material-ui/core/Tooltip';
+import Button from '@material-ui/core/Button';
+import GetAppIcon from '@material-ui/icons/GetApp';
+import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 
 import { CustomSlider } from 'generalUI/CustomSlider';
 import { CustomCheckbox } from 'generalUI/CustomCheckbox';
@@ -88,8 +91,31 @@ const ConfigurationSection = () => (
         />
       </Column>
     </ColumnWrapper>
+    <ButtonWrapper>
+      <Button
+      variant="contained"
+      color="primary"
+      startIcon={<GetAppIcon />}
+      >
+        Download PDF
+      </Button>
+      <Button
+      variant="contained"
+      color="primary"
+      startIcon={<OpenInNewIcon />}
+      >
+        Open PDF in New Tab
+      </Button>
+    </ButtonWrapper>
   </React.Fragment>
 )
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-around;
+  padding: 0 250px;
+  margin-right: 100px;
+`
 
 const ColumnWrapper = styled.div`
   display: flex;
