@@ -160,6 +160,11 @@ class PDF(FPDF, HTMLMixin):
         self.cell(80)
         # Title
         self.cell(30, 10, title, 0, 0, 'C')
+        # Move to the right
+        self.cell(30)
+        # Name Field
+        self.set_font("Arial", size=11) # Arial 12
+        self.cell(30, 10, 'Name ______________________', 0, 0, 'C')
         # Line break
         self.ln(20)
 
