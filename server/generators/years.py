@@ -50,24 +50,25 @@ class Person:
 #                                     Helpers                                #
 # -------------------------------------------------------------------------- #
 
-def use_number_words():
-    if NUMBERS_AS_WORDS == Frequency_Types.Sometimes:
-        return random.randrange(2) == 1 # 50/50 chance True/False
-    elif NUMBERS_AS_WORDS == Frequency_Types.Always:
+def add_extra_info(use_extra_info):
+    if use_extra_info == 'Never':
+        return False
+    elif use_extra_info == 'Always':
         return True
     else:
-        return False
-
-def add_extra_info():
-    if EXTRA_INFORMATION == Frequency_Types.Sometimes:
         return random.randrange(2) == 1 # 50/50 chance True/False
-    elif EXTRA_INFORMATION == Frequency_Types.Always:
+
+def use_words_for_numbers(number_type):
+    if (number_type == 'Numbers Only'):
+        return False
+    elif (number_type == 'Words Only'):
         return True
     else:
-        return False
+        return random.randrange(2) == 1 # 50/50 chance True/False
 
-def replace_sentence_tokens(sentence, elder, younger, names_list):
-    numbers_as_words = use_number_words()
+def replace_sentence_tokens(sentence, elder, younger, names_list, input_data):
+    # Display numbers or words or a mix
+    numbers_as_words = use_words_for_numbers(input_data['number_type'])
 
     if (numbers_as_words):
         elder_age = inflection.number_to_words(elder.age)
@@ -78,7 +79,8 @@ def replace_sentence_tokens(sentence, elder, younger, names_list):
         younger_age = str(younger.age)
         age_diff = str(elder.age - younger.age)
 
-    if (add_extra_info()):
+    # Include "extra info" or not
+    if (add_extra_info(input_data['extra_info'])):
         extra_info = RandomList(extra_info_sentences).get_random()
         extra_person = Person(names_list.get_random_and_remove())
         extra_name = extra_person.name
@@ -112,7 +114,7 @@ def replace_sentence_tokens(sentence, elder, younger, names_list):
 #                               Sentence Generation                          #
 # -------------------------------------------------------------------------- #
 
-def random_sentence():
+def random_sentence(input_data):
     names_list = RandomList(names)
     person1 = Person(names_list.get_random_and_remove())
     person2 = Person(names_list.get_random_and_remove())
@@ -121,15 +123,18 @@ def random_sentence():
     younger = person2 if person2.age < person1.age else person1
     elder.dob -= 1 # subtracting 1 just to ensure they can't have the same age
 
-    if ADDITION_ONLY:
+    addition_only = input_data['math_type'] == 'Addition Only'
+    subtraction_only = input_data['math_type'] == 'Subtraction Only'
+
+    if addition_only:
         sentence_list = RandomList(addition_sentences)
-    elif SUBTRACTION_ONLY:
+    elif subtraction_only:
         sentence_list = RandomList(subtraction_sentences)
     else:
         sentence_list = RandomGroup([RandomList(addition_sentences), RandomList(subtraction_sentences)])
 
     random_sentence = sentence_list.get_random()
-    random_sentence = replace_sentence_tokens(random_sentence, elder, younger, names_list)
+    random_sentence = replace_sentence_tokens(random_sentence, elder, younger, names_list, input_data)
 
     return random_sentence
 
@@ -138,10 +143,11 @@ def random_sentence():
 #                                 PDF Generation                             #
 # -------------------------------------------------------------------------- #
 
-def get_sentence_list():
+def get_sentence_list(input_data):
+    num_problems = input_data['num_problems']
     sentences = []
-    for i in range(1, NUM_SENTENCES+1):
-        sentences.append(f'{i}. {random_sentence()}')
+    for i in range(1, num_problems+1):
+        sentences.append(f'{i}. {random_sentence(input_data)}')
     return sentences
 
 
@@ -165,15 +171,14 @@ class PDF(FPDF, HTMLMixin):
         # Line Break
         self.ln(12)
 
-def generate_years():
-
+def generate_years(input_data):
     pdf = PDF()
     pdf.add_page()
 
     # Print title
     pdf.add_title('Years and Ages')
     # Print sentence list
-    for sentence in get_sentence_list():
+    for sentence in get_sentence_list(input_data):
         pdf.text_line(sentence)
     latin_encoded = pdf.output(dest='S').encode('latin-1')
     base64_encoded = base64.b64encode(latin_encoded)

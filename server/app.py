@@ -1,5 +1,5 @@
 from io import BytesIO
-from flask import Flask, jsonify, make_response, send_file, render_template
+from flask import Flask, jsonify, make_response, send_file, render_template, request
 from server.generators.years import generate_years
 
 app = Flask(__name__, static_folder="../client", template_folder="../client")
@@ -31,7 +31,8 @@ def index():
 
 @app.route('/api/years', methods=['POST'])
 def get_years():
-    pdf_byte_string = generate_years()
+    input_data = request.json
+    pdf_byte_string = generate_years(input_data)
     return jsonify(pdf_byte_string)
 
 if __name__ == '__main__':
