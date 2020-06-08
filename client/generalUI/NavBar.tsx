@@ -17,7 +17,7 @@ export const NavBar = () => {
       />
       <NavLink
         url='/years'
-        name='Years'
+        name='Years and Ages'
       />
     </SideBar>
   )
