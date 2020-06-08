@@ -7,6 +7,9 @@ import Chip from '@material-ui/core/Chip';
 import LaunchIcon from '@material-ui/icons/Launch';
 import Tooltip from '@material-ui/core/Tooltip';
 
+import { CustomSlider } from 'generalUI/CustomSlider';
+import { CustomCheckbox } from 'generalUI/CustomCheckbox';
+import { RadioForm } from 'generalUI/RadioForm';
 
 // -------------------------------------------------------------------------- //
 //                                Page Setup                                  //
@@ -19,7 +22,7 @@ const chipLabels = ['Grade 2', 'Grade 3', 'Addition', 'Subtraction'];
 const DescriptionBody = () => (
   <p>
     Generate a worksheet in which students will use <strong>addition </strong>
-    and <strong>subtraction</strong> to discover unknown ages, years of birth,
+    and/or <strong>subtraction</strong> to discover unknown ages, years of birth,
     and differences in years.
   </p>
 )
@@ -41,8 +44,66 @@ const standardUrl = 'http://www.corestandards.org/Math/Content/2/OA/'
 export const YearsPage = () => (
   <React.Fragment>
     <PageInfo />
+    <ConfigurationSection />
   </React.Fragment>
 )
+
+// -------------------------------------------------------------------------- //
+//                           Configuration Section                            //
+// -------------------------------------------------------------------------- //
+
+const ConfigurationSection = () => (
+  <React.Fragment>
+    <h2>Configure</h2>
+    <ColumnWrapper>
+      <Column>
+        <CustomSlider
+          label='Number of Problems'
+          min={10}
+          max={30}
+          defaultValue={15}
+          step={5}
+        />
+        <CustomCheckbox label="Include Answer Sheet" defaultState={false}/>
+        <CustomCheckbox label="Use Comic Sans" defaultState={false}/>
+      </Column>
+      <Column>
+        <RadioForm
+          label='Number Display Type'
+          options={['Numbers Only', 'Words Only', 'Numbers and Words']}
+        />
+        <RadioForm
+          label='Math Type'
+          options={['Addition Only', 'Subtraction Only', 'Addition and Subtraction']}
+        />
+      </Column>
+      <Column>
+        <RadioForm
+          label='Require Regrouping'
+          options={['Never', 'Sometimes', 'Always']}
+        />
+        <RadioForm
+          label='Extra Information'
+          options={['Never', 'Sometimes', 'Always']}
+        />
+      </Column>
+    </ColumnWrapper>
+  </React.Fragment>
+)
+
+const ColumnWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+`
+
+const Column = styled.span`
+  flex: 1;
+  padding: 0 30px;
+  & > div {
+    margin-bottom: 50px;
+  }
+`
+
 
 // -------------------------------------------------------------------------- //
 //                              Sub-Components                                //
