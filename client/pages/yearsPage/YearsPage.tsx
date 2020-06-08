@@ -73,6 +73,7 @@ const ConfigurationSection = () => {
     <React.Fragment>
       <h2>Configure</h2>
       <ColumnWrapper>
+        {/* ----- Column 1 ------------------- */}
         <Column>
           <CustomSlider
             label='Number of Problems'
@@ -85,6 +86,7 @@ const ConfigurationSection = () => {
           <CustomCheckbox label="Include Answer Sheet" defaultState={false}/>
           <CustomCheckbox label="Use Comic Sans" defaultState={false}/>
         </Column>
+        {/* ----- Column 2 ------------------- */}
         <Column>
           <RadioForm
             label='Number Display Type'
@@ -95,6 +97,7 @@ const ConfigurationSection = () => {
             options={['Addition Only', 'Subtraction Only', 'Addition and Subtraction']}
           />
         </Column>
+        {/* ----- Column 3 ------------------- */}
         <Column>
           <RadioForm
             label='Require Regrouping'
@@ -106,6 +109,7 @@ const ConfigurationSection = () => {
           />
         </Column>
       </ColumnWrapper>
+      {/* ----- Button Section ------------------- */}
       <ButtonWrapper>
         <Button
           variant="contained"
