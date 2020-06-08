@@ -185,5 +185,6 @@ def generate_years():
     # Print sentence list
     for sentence in get_sentence_list():
         pdf.text_line(sentence)
-
-    return pdf.output(name="simple_demo.pdf", dest='S')
+    latin_encoded = pdf.output(dest='S').encode('latin-1')
+    base64_encoded = base64.b64encode(latin_encoded)
+    return base64_encoded.decode('utf-8')
