@@ -121,7 +121,7 @@ def random_sentence(input_data):
 
     elder = person1 if person1.age > person2.age else person2
     younger = person2 if person2.age < person1.age else person1
-    elder.dob -= 1 # subtracting 1 just to ensure they can't have the same age
+    younger.dob -= 1 # subtracting 1 just to ensure they can't have the same age
 
     addition_only = input_data['math_type'] == 'Addition Only'
     subtraction_only = input_data['math_type'] == 'Subtraction Only'
@@ -155,7 +155,7 @@ class PDF(FPDF, HTMLMixin):
 
     def add_title(self, title):
         # Arial 16, Bold
-        self.set_font("Arial", 'B', size=16)
+        self.set_font("Arial", 'B', size=14)
         # Move to the right
         self.cell(80)
         # Title
@@ -163,23 +163,43 @@ class PDF(FPDF, HTMLMixin):
         # Line break
         self.ln(20)
 
-    def text_line(self, txt):
+    def text_line(self, txt, num_problems):
         # Arial 14
-        self.set_font("Arial", size=14)
+        self.set_font("Arial", size=self.get_font_size(num_problems))
         # Text
         self.multi_cell(0, 6, txt)
         # Line Break
-        self.ln(12)
+        self.ln(self.get_line_spacing(num_problems))
+
+    def get_font_size(self, num_problems):
+        if num_problems < 10:
+            return 14
+        elif num_problems < 12:
+            return 12
+        else: # is 12
+            return 11
+
+    def get_line_spacing(self, num_problems):
+        if num_problems < 7:
+            return 25
+        elif num_problems < 10:
+            return 16
+        elif num_problems < 12:
+            return 10
+        else: # is 12
+            return 9
 
 def generate_years(input_data):
     pdf = PDF()
     pdf.add_page()
+    pdf.set_margins(16, 20, 16)
+    num_problems = input_data['num_problems']
 
     # Print title
     pdf.add_title('Years and Ages')
     # Print sentence list
     for sentence in get_sentence_list(input_data):
-        pdf.text_line(sentence)
+        pdf.text_line(sentence, num_problems)
     latin_encoded = pdf.output(dest='S').encode('latin-1')
     base64_encoded = base64.b64encode(latin_encoded)
     return base64_encoded.decode('utf-8')
