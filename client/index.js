@@ -29,6 +29,7 @@ const App = () => (
               <YearsPage />
             </Route>
           </Switch>
+          <Footer/>
         </MainContent>
       </PageContainer>
     </Router>
@@ -83,5 +84,19 @@ const MainContent = styled.div`
   padding: 50px 60px;
   overflow: auto;
 `
+
+const FooterStyle = styled.div`
+  margin-top: 40px 0;
+  padding: 40px 0;
+  border-top: 1px solid lightgray;
+  text-align: right;
+  opacity: 0.6;
+`
+
+const Footer = () => (
+  <FooterStyle>
+    <span>Copyright 2020</span>
+  </FooterStyle>
+)
 
 ReactDOM.render(<App />, document.getElementById('app'));
