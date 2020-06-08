@@ -12,11 +12,12 @@ interface CustomSliderProps {
   min: number,
   max: number,
   defaultValue: number,
+  step: number,
   label: string
 }
 
-export const CustomSlider = ({min, max, defaultValue, label}: CustomSliderProps) => (
-  <React.Fragment>
+export const CustomSlider = ({min, max, defaultValue, step, label}: CustomSliderProps) => (
+  <div>
     <Typography id={`slider-${label}`} gutterBottom>
       {label}
     </Typography>
@@ -26,18 +27,19 @@ export const CustomSlider = ({min, max, defaultValue, label}: CustomSliderProps)
       valueLabelDisplay="auto"
       min={min}
       max={max}
-      marks={getMarks(min, max)}
+      marks={getMarks(min, max, step)}
+      step={step}
     />
-  </React.Fragment>
+  </div>
 )
 
 // -------------------------------------------------------------------------- //
 //                                  Helpers                                   //
 // -------------------------------------------------------------------------- //
 
-const getMarks = (min: number, max: number) => {
+const getMarks = (min: number, max: number, step: number) => {
   const marks = [];
-  for (let i = min; i <= max; i++) {
+  for (let i = min; i <= max; i+=step) {
     console.log(i)
     if (i % 5 == 0) {
       marks.push({value: i, label: i});
