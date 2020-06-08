@@ -2,6 +2,7 @@ import random
 import inflect
 import re
 from enum import Enum
+import json
 from randomizer import RandomList, RandomGroup
 from fpdf import FPDF, HTMLMixin
 import base64
@@ -23,39 +24,15 @@ ELDEST_DOB = 1950
 YOUNGEST_DOB = 2014
 NUMBERS_AS_WORDS = Frequency_Types.Sometimes
 EXTRA_INFORMATION = Frequency_Types.Always
+ADDITION_ONLY = True
+SUBTRACTION_ONLY = False
 
-def get_names():
-    return RandomList([
-        'James', "Tasha", "Melanie", "Bobbie", "Susanna", "Angela", "Helen", "Hana", "Ana", "Fareeha",
-        "Frankie", "Christina", "Julio", "Jorge", "Pearl", "Maya", "Mia", "Nick", "Miles", "Lotta",
-        "Bernie", "Frannie", "Larry", "Dahlia", "Godot", "Winston", "Hammond", "Amelie", "Jack", "Jesse",
-        "Ashe", "Brigitte"
-    ])
+data = json.load(open('server/generators/years_data.json', 'r'))
+addition_sentences = data['addition_sentences']
+subtraction_sentences = data['subtraction_sentences']
+extra_info_sentences = data['extra_info']
 
-def get_subtraction_sentences():
-    return RandomList([
-        'ELDER_NAME is ELDER_AGE. YOUNGER_NAME is YOUNGER_AGE. (EXTRA_INFO) How many years apart are ELDER_NAME and YOUNGER_NAME?',
-        'ELDER_NAME is ELDER_AGE. (EXTRA_INFO) YOUNGER_NAME is YOUNGER_AGE. How much older is ELDER_NAME than YOUNGER_NAME?',
-        'ELDER_NAME is ELDER_AGE. YOUNGER_NAME is YOUNGER_AGE. (EXTRA_INFO) How much younger is YOUNGER_NAME than ELDER_NAME?',
-        'ELDER_NAME is ELDER_AGE. (EXTRA_INFO) YOUNGER_NAME is YOUNGER_AGE. How old was ELDER_NAME when YOUNGER_NAME was born?',
-        'YOUNGER_NAME was born in YOUNGER_DOB. (EXTRA_INFO) ELDER_NAME was born DIFFERENCE years before YOUNGER_NAME. In what year was ELDER_NAME born?',
-    ])
-
-def get_addition_sentences():
-    return RandomList([
-        'ELDER_NAME is ELDER_AGE. (EXTRA_INFO) How old will ELDER_NAME be in DIFFERENCE years?',
-        'YOUNGER_NAME is YOUNGER_AGE. (EXTRA_INFO) ELDER_NAME is DIFFERENCE years older than YOUNGER_NAME. How old is ELDER_NAME?',
-        'ELDER_NAME was born in ELDER_DOB. (EXTRA_INFO) YOUNGER_NAME was born DIFFERENCE years after ELDER_NAME. What year was YOUNGER_NAME born in?'
-    ])
-
-def get_extra_info_list():
-    return RandomList([
-        "EXTRA_NAME was born in EXTRA_YEAR.",
-        "EXTRA_NAME is EXTRA_AGE years old."
-    ])
-
-def get_sentences():
-    return RandomGroup([get_subtraction_sentences(), get_addition_sentences()])
+names = json.load(open('server/generators/names.json', 'r'))['list']
 
 
 # -------------------------------------------------------------------------- #
@@ -63,8 +40,8 @@ def get_sentences():
 # -------------------------------------------------------------------------- #
 
 class Person:
-    def __init__(self, names):
-        self.name = names.get_random_and_remove()
+    def __init__(self, name):
+        self.name = name
         self.dob = random.randint(ELDEST_DOB, YOUNGEST_DOB)
         self.age = CURRENT_YEAR - self.dob
 
@@ -89,7 +66,7 @@ def add_extra_info():
     else:
         return False
 
-def replace_sentence_tokens(sentence, elder, younger, names):
+def replace_sentence_tokens(sentence, elder, younger, names_list):
     numbers_as_words = use_number_words()
 
     if (numbers_as_words):
@@ -102,8 +79,8 @@ def replace_sentence_tokens(sentence, elder, younger, names):
         age_diff = str(elder.age - younger.age)
 
     if (add_extra_info()):
-        extra_info = get_extra_info_list().get_random()
-        extra_person = Person(names)
+        extra_info = RandomList(extra_info_sentences).get_random()
+        extra_person = Person(names_list.get_random_and_remove())
         extra_name = extra_person.name
         extra_age = inflection.number_to_words(extra_person.age) if numbers_as_words else str(extra_person.age)
         extra_year = str(extra_person.dob)
@@ -136,16 +113,23 @@ def replace_sentence_tokens(sentence, elder, younger, names):
 # -------------------------------------------------------------------------- #
 
 def random_sentence():
-    names = get_names()
-    person1 = Person(names)
-    person2 = Person(names)
+    names_list = RandomList(names)
+    person1 = Person(names_list.get_random_and_remove())
+    person2 = Person(names_list.get_random_and_remove())
 
     elder = person1 if person1.age > person2.age else person2
     younger = person2 if person2.age < person1.age else person1
     elder.dob -= 1 # subtracting 1 just to ensure they can't have the same age
 
-    random_sentence = get_sentences().get_random()
-    random_sentence = replace_sentence_tokens(random_sentence, elder, younger, names)
+    if ADDITION_ONLY:
+        sentence_list = RandomList(addition_sentences)
+    elif SUBTRACTION_ONLY:
+        sentence_list = RandomList(subtraction_sentences)
+    else:
+        sentence_list = RandomGroup([RandomList(addition_sentences), RandomList(subtraction_sentences)])
+
+    random_sentence = sentence_list.get_random()
+    random_sentence = replace_sentence_tokens(random_sentence, elder, younger, names_list)
 
     return random_sentence
 

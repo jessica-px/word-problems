@@ -1,0 +1,18 @@
+{
+  "addition_sentences": [
+    "ELDER_NAME is ELDER_AGE. (EXTRA_INFO) How old will ELDER_NAME be in DIFFERENCE years?",
+    "YOUNGER_NAME is YOUNGER_AGE. (EXTRA_INFO) ELDER_NAME is DIFFERENCE years older than YOUNGER_NAME. How old is ELDER_NAME?",
+    "ELDER_NAME was born in ELDER_DOB. (EXTRA_INFO) YOUNGER_NAME was born DIFFERENCE years after ELDER_NAME. What year was YOUNGER_NAME born in?"
+  ],
+  "subtraction_sentences": [
+    "ELDER_NAME is ELDER_AGE. YOUNGER_NAME is YOUNGER_AGE. (EXTRA_INFO) How many years apart are ELDER_NAME and YOUNGER_NAME?",
+    "ELDER_NAME is ELDER_AGE. (EXTRA_INFO) YOUNGER_NAME is YOUNGER_AGE. How much older is ELDER_NAME than YOUNGER_NAME?",
+    "ELDER_NAME is ELDER_AGE. YOUNGER_NAME is YOUNGER_AGE. (EXTRA_INFO) How much younger is YOUNGER_NAME than ELDER_NAME?",
+    "ELDER_NAME is ELDER_AGE. (EXTRA_INFO) YOUNGER_NAME is YOUNGER_AGE. How old was ELDER_NAME when YOUNGER_NAME was born?",
+    "YOUNGER_NAME was born in YOUNGER_DOB. (EXTRA_INFO) ELDER_NAME was born DIFFERENCE years before YOUNGER_NAME. In what year was ELDER_NAME born?"
+  ],
+  "extra_info": [
+    "EXTRA_NAME was born in EXTRA_YEAR.",
+    "EXTRA_NAME is EXTRA_AGE years old."
+  ]
+}
