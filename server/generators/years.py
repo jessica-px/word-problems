@@ -110,7 +110,11 @@ def random_sentence(input_data):
 
     elder = person1 if person1.age > person2.age else person2
     younger = person2 if person2.age < person1.age else person1
-    younger.age -= 2 # subtracting 2 just to ensure there's at least a two year difference
+    if elder.age == younger.age:
+        if elder.age < input_data['age_range'][1]:
+            elder.age += 1
+        else:
+            younger.age -= 1
 
     # Get sentences
     addition_only = input_data['math_type'] == 'Addition Only'
