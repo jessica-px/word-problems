@@ -1,9 +1,9 @@
 import React from 'react';
 import styled, { css } from 'styled-components'
 import { withStyles, Theme } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import { COLORS } from 'generalUI/styleConstants';
+import { HelpIconTooltip } from 'generalUI/HelpIconTooltip';
 
 // -------------------------------------------------------------------------- //
 //                              Main Component                                //
@@ -16,14 +16,15 @@ interface CustomSliderProps {
   step: number,
   markStep: number,
   label: string,
-  onChange: any
+  onChange: any,
+  tooltip?: string
 }
 
-export const CustomSlider = ({min, max, defaultValue, step, markStep, label, onChange}: CustomSliderProps) => (
+export const CustomSlider = ({min, max, defaultValue, step, markStep, label, onChange, tooltip}: CustomSliderProps) => (
   <div>
-    <Typography id={`slider-${label}`} gutterBottom>
-      {label}
-    </Typography>
+    <Label id={`slider-${label}`} >
+      {label}&nbsp;{tooltip && <HelpIconTooltip tooltip={tooltip}/>}
+    </Label>
     <StyledSlider
       defaultValue={defaultValue}
       aria-labelledby={`slider-${label}`}
@@ -44,14 +45,15 @@ interface CustomRangeSliderProps {
   step: number,
   markStep: number,
   label: string,
-  onChange: any
+  onChange: any,
+  tooltip?: string
 }
 
-export const CustomRangeSlider = ({value, min, max, step, markStep, label, onChange}: CustomRangeSliderProps) => (
+export const CustomRangeSlider = ({value, min, max, step, markStep, label, onChange, tooltip}: CustomRangeSliderProps) => (
   <div>
-    <Typography id={`slider-${label}`} gutterBottom>
-      {label}
-    </Typography>
+    <Label id={`slider-${label}`}>
+    {label}&nbsp;{tooltip && <HelpIconTooltip tooltip={tooltip}/>}
+    </Label>
     <StyledSlider
       value={value}
       aria-labelledby={`slider-${label}`}
@@ -82,6 +84,7 @@ const getMarks = (min: number, max: number, step: number, markStep: number) => {
   return marks;
 }
 
+
 // -------------------------------------------------------------------------- //
 //                                  Styles                                    //
 // -------------------------------------------------------------------------- //
@@ -109,3 +112,9 @@ const StyledSlider = withStyles({
     backgroundColor: 'currentColor',
   }
 })(Slider)
+
+const Label = styled.p`
+  margin-bottom: 0.35em;
+  display: inline-flex;
+  align-items: center;
+`
