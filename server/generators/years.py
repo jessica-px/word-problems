@@ -147,20 +147,28 @@ def get_sentence_list(input_data):
 
 class PDF(FPDF, HTMLMixin):
 
+    def add_name_date(self):
+        # Arial 16, Bold
+        self.set_font("Arial", size=10)
+        # Move to the right
+        self.cell(33)
+        # Name Field
+        self.cell(25, 10, 'Name ___________________________________', 0, 0, 'C')
+        # Move to the right
+        self.cell(102)
+        # Date Field
+        self.cell(25, 10, 'Date __________', 0, 0, 'C')
+        # Line break
+        self.ln(12)
+
     def add_title(self, title):
         # Arial 16, Bold
-        self.set_font("Arial", 'B', size=14)
-        # Move to the right
-        self.cell(80)
+        self.set_font("Arial", 'B', size=12)
         # Title
         self.cell(30, 10, title, 0, 0, 'C')
-        # Move to the right
-        self.cell(30)
-        # Name Field
-        self.set_font("Arial", size=11) # Arial 12
-        self.cell(30, 10, 'Name ______________________', 0, 0, 'C')
+        self.line(16, 31, 195, 31)
         # Line break
-        self.ln(20)
+        self.ln(16)
 
     def text_line(self, txt, num_problems):
         # Arial 14
@@ -195,6 +203,7 @@ def generate_years(input_data):
     num_problems = input_data['num_problems']
 
     # Print title
+    pdf.add_name_date()
     pdf.add_title('Years and Ages')
     # Print sentence list
     for sentence in get_sentence_list(input_data):
