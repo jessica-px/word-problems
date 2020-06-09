@@ -142,6 +142,7 @@ const ConfigurationSection = () => {
             step={5}
             markStep={10}
             onChange={onChangeAgeRange}
+            tooltip='The allowable ages for the people in the problems. Use lower numbers and smaller ranges for earlier grades.'
           />
           <CustomCheckbox
             label="Include Answer Sheet"
