@@ -1,7 +1,7 @@
 import random
 import inflect
 import re
-from enum import Enum
+import datetime
 import json
 from randomizer import RandomList, RandomGroup
 from fpdf import FPDF, HTMLMixin
@@ -11,21 +11,7 @@ import base64
 #                                   Constants                                #
 # -------------------------------------------------------------------------- #
 
-class Frequency_Types(Enum):
-    Always = 1
-    Sometimes = 2
-    Never = 3
-
 inflection = inflect.engine()
-
-NUM_SENTENCES = 10
-CURRENT_YEAR = 2020
-ELDEST_DOB = 1950
-YOUNGEST_DOB = 2014
-NUMBERS_AS_WORDS = Frequency_Types.Sometimes
-EXTRA_INFORMATION = Frequency_Types.Always
-ADDITION_ONLY = True
-SUBTRACTION_ONLY = False
 
 data = json.load(open('server/generators/years_data.json', 'r'))
 addition_sentences = data['addition_sentences']
@@ -43,7 +29,7 @@ class Person:
     def __init__(self, name, age_range):
         self.name = name
         self.age = random.randint(age_range[0], age_range[1])
-        self.dob = CURRENT_YEAR - self.age
+        self.dob = datetime.datetime.now().year - self.age
 
 
 # -------------------------------------------------------------------------- #
