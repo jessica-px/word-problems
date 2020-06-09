@@ -21,6 +21,7 @@ export const CustomCheckbox = ({label, defaultState, onChange}: CustomCheckboxPr
       <FormControlLabel
         control={<Checkbox checked={checked} onChange={handleChange} name={label} />}
         label={label}
+        disabled
       />
     </div>
   );
