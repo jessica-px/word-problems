@@ -10,9 +10,10 @@ interface RadioFormProps {
   label: string,
   options: any,
   onChange: any,
+  disabled?: boolean
 }
 
-export const RadioForm = ({label, options, onChange}: RadioFormProps) => {
+export const RadioForm = ({label, options, onChange, disabled}: RadioFormProps) => {
   const [value, setValue] = React.useState(options[0]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,7 +28,7 @@ export const RadioForm = ({label, options, onChange}: RadioFormProps) => {
         <FormLabel component="legend">{label}</FormLabel>
         <RadioGroup aria-label={label} name={label} value={value} onChange={handleChange}>
           {options.map((option: string) => (
-            <FormControlLabel value={option} control={<Radio />} label={option} />
+            <FormControlLabel value={option} control={<Radio />} label={option} disabled={disabled}/>
           ))}
         </RadioGroup>
       </FormControl>
