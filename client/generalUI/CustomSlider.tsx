@@ -37,6 +37,34 @@ export const CustomSlider = ({min, max, defaultValue, step, markStep, label, onC
   </div>
 )
 
+interface CustomRangeSliderProps {
+  value: number[],
+  min: number,
+  max: number,
+  step: number,
+  markStep: number,
+  label: string,
+  onChange: any
+}
+
+export const CustomRangeSlider = ({value, min, max, step, markStep, label, onChange}: CustomRangeSliderProps) => (
+  <div>
+    <Typography id={`slider-${label}`} gutterBottom>
+      {label}
+    </Typography>
+    <StyledSlider
+      value={value}
+      aria-labelledby={`slider-${label}`}
+      valueLabelDisplay="auto"
+      min={min}
+      max={max}
+      marks={getMarks(min, max, step, markStep)}
+      step={step}
+      onChange={onChange}
+    />
+  </div>
+)
+
 // -------------------------------------------------------------------------- //
 //                                  Helpers                                   //
 // -------------------------------------------------------------------------- //
