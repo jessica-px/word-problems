@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 
-import { CustomSlider } from 'generalUI/CustomSlider';
+import { CustomSlider, CustomRangeSlider } from 'generalUI/CustomSlider';
 import { CustomCheckbox } from 'generalUI/CustomCheckbox';
 import { RadioForm } from 'generalUI/RadioForm';
 import { PageInfo } from 'generalUI/PageInfo';
@@ -63,7 +63,7 @@ interface FormData {
   file_name: string,
   num_problems: number,
   answer_sheet: boolean,
-  comic_sans: boolean,
+  age_range: number[],
   number_type: string,
   math_type: string,
   regrouping: string,
@@ -76,14 +76,14 @@ const ConfigurationSection = () => {
     setNumProblems(value);
   }
 
+  const [ageRange, setAgeRange] = useState<number[]>([10, 60]);
+  const onChangeAgeRange = (e: any, value: number[]) => {
+    setAgeRange(value);
+  }
+
   const [useAnswerSheet, setUseAnswerSheet] = useState<boolean>(false);
   const onChangeUseAnswerSheet = (value: boolean) => {
     setUseAnswerSheet(value);
-  }
-
-  const [useComicSans, setUseComicSans] = useState<boolean>(false);
-  const onChangeUseComicSans = (value: boolean) => {
-    setUseComicSans(value);
   }
 
   const [numberType, setNumberType] = useState<string>('Numbers Only');
@@ -111,7 +111,7 @@ const ConfigurationSection = () => {
       file_name: 'years_and_ages.pdf',
       num_problems: numProblems,
       answer_sheet: useAnswerSheet,
-      comic_sans: useComicSans,
+      age_range: ageRange,
       number_type: numberType,
       math_type: mathType,
       regrouping: regrouping,
@@ -134,15 +134,19 @@ const ConfigurationSection = () => {
             markStep={2}
             onChange={onChangeNumProblems}
           />
+          <CustomRangeSlider
+            label='Age Ranges'
+            value={ageRange}
+            min={10}
+            max={90}
+            step={5}
+            markStep={10}
+            onChange={onChangeAgeRange}
+          />
           <CustomCheckbox
             label="Include Answer Sheet"
             defaultState={false}
             onChange={onChangeUseAnswerSheet}
-          />
-          <CustomCheckbox
-            label="Use Comic Sans"
-            defaultState={false}
-            onChange={onChangeUseComicSans}
           />
         </Column>
         {/* ----- Column 2 ------------------- */}
