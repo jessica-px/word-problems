@@ -61,7 +61,7 @@ interface StandardsLinkProps {
 
 const StandardsLink = ({name, description, url}: StandardsLinkProps) => (
   <LightTooltip title={description} >
-    <a href={url}>
+    <a href={url} target="_blank">
         {name} <LaunchIcon fontSize="small"/>
     </a>
   </LightTooltip>
