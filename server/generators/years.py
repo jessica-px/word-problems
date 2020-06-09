@@ -40,10 +40,10 @@ names = json.load(open('server/generators/names.json', 'r'))['list']
 # -------------------------------------------------------------------------- #
 
 class Person:
-    def __init__(self, name):
+    def __init__(self, name, age_range):
         self.name = name
-        self.dob = random.randint(ELDEST_DOB, YOUNGEST_DOB)
-        self.age = CURRENT_YEAR - self.dob
+        self.age = random.randint(age_range[0], age_range[1])
+        self.dob = CURRENT_YEAR - self.age
 
 
 # -------------------------------------------------------------------------- #
@@ -82,7 +82,7 @@ def replace_sentence_tokens(sentence, elder, younger, names_list, input_data):
     # Include "extra info" or not
     if (add_extra_info(input_data['extra_info'])):
         extra_info = RandomList(extra_info_sentences).get_random()
-        extra_person = Person(names_list.get_random_and_remove())
+        extra_person = Person(names_list.get_random_and_remove(), input_data['age_range'])
         extra_name = extra_person.name
         extra_age = inflection.number_to_words(extra_person.age) if numbers_as_words else str(extra_person.age)
         extra_year = str(extra_person.dob)
@@ -115,14 +115,18 @@ def replace_sentence_tokens(sentence, elder, younger, names_list, input_data):
 # -------------------------------------------------------------------------- #
 
 def random_sentence(input_data):
+    # Create people
     names_list = RandomList(names)
-    person1 = Person(names_list.get_random_and_remove())
-    person2 = Person(names_list.get_random_and_remove())
+    name1 = names_list.get_random_and_remove()
+    name2 = names_list.get_random_and_remove()
+    person1 = Person(name1, input_data['age_range'])
+    person2 = Person(name2, input_data['age_range'])
 
     elder = person1 if person1.age > person2.age else person2
     younger = person2 if person2.age < person1.age else person1
-    younger.dob -= 1 # subtracting 1 just to ensure they can't have the same age
+    younger.age -= 2 # subtracting 2 just to ensure there's at least a two year difference
 
+    # Get sentences
     addition_only = input_data['math_type'] == 'Addition Only'
     subtraction_only = input_data['math_type'] == 'Subtraction Only'
 
