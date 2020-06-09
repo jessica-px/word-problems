@@ -169,6 +169,7 @@ const ConfigurationSection = () => {
             label='Require Regrouping'
             options={['Never', 'Sometimes', 'Always']}
             onChange={onChangeRegrouping}
+            disabled
           />
           <RadioForm
             label='Extra Information'
